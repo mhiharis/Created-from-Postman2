@@ -1,0 +1,36 @@
+const { test, expect } = require('@playwright/test');
+const homePageActions = require('../actions/homePageActions');
+const userHomePageActions = require("../actions/userHomePageActions");
+
+test('Verify usr can select and place order for a Women Light Jacket', async ({ page }) => {
+  await page.goto(process.env.baseURL);
+  await homePageActions.verifyLogo(page);
+  await userHomePageActions.navigateLoginNverify(page);
+  await userHomePageActions.validLogin(page);
+  await page.getByRole('menuitem', { name: ' Men' }).click();
+  await page.getByRole('link', { name: 'Jackets' }).click();
+  await page.getByRole('link', { name: 'Proteus Fitness Jackshirt' }).first().click();
+  await page.getByLabel('S', { exact: true }).click();
+  await page.getByLabel('Black').click();
+  await page.getByRole('button', { name: 'Add to Cart' }).click();
+  await page.getByRole('link', { name: ' My Cart 1 1 items' }).click();
+  await expect(page.locator('#top-cart-btn-checkout')).toContainText('Proceed to Checkout');
+  await page.getByRole('button', { name: 'Proceed to Checkout' }).click();
+  // await page.getByLabel('Street Address: Line 1').click();
+  // await page.getByLabel('Street Address: Line 1').fill('123 manhattan');
+  // await page.getByLabel('City').click();
+  // await page.getByLabel('City').fill('New York');
+  // await page.locator('select[name="region_id"]').selectOption('43');
+  // await page.getByLabel('Zip/Postal Code').click();
+  // await page.getByLabel('Zip/Postal Code').fill('11018');
+  // await page.getByLabel('Phone Number').click();
+  // await page.getByLabel('Phone Number').fill('1234567890');
+  await page.getByLabel('Fixed').check();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await expect(page.locator('#checkout-payment-method-load')).toContainText('My billing and shipping address are the same');
+  await expect(page.getByRole('button', { name: 'Place Order' })).toBeVisible();
+  await page.getByRole('button', { name: 'Place Order' }).click();
+  //await expect(page.getByRole('link', { name: '000015823' })).toBeVisible();
+  await expect(page.locator('#maincontent')).toContainText('Print receipt');
+  await page.getByRole('link', { name: 'Continue Shopping' }).click();
+});
