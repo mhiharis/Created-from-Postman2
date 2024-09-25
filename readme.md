@@ -1,12 +1,33 @@
 1. First Clone this project.
 
 2. Open Terminal and run the code = 
+// Run the following command to install the project's dependencies:
+      <<<<<<    npm install    >>>>>>
 
 3. Create .env file under project root directory and add followings:
 
 baseURL= Get the data from team Lead
 USER_NAME= Get test user name from team Lead
 PASSWORD= Get test password from team Lead
+
+4. Run Tests:
+
+   You can run tests directly from the terminal using:
+
+<<<<<<<<<       npx playwright test        >>>>>>>>>
+
+
+If you have configured tags for tests, you can run specific tests using:
+<<<<<<<<<        npx playwright test --grep @yourTag        >>>>>>>>>
+
+You can also create a script in package.json for easier test execution if it isn't already there:
+
+<<<<<<<<<<<           
+
+"scripts": {
+  "test": "npx playwright test"
+}                                                                                     >>>>>>>>>>>
+
 #
  #
   #
